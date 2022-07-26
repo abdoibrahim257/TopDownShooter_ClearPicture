@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6663544392813011289}
   - component: {fileID: 7133254470925467732}
-  - component: {fileID: -1524371873331834083}
   - component: {fileID: 7732271990166494832}
   - component: {fileID: 9021392344487985008}
   - component: {fileID: -4018946237982679470}
+  - component: {fileID: -646883735627798047}
   m_Layer: 0
   m_Name: ProjectileBullet
   m_TagString: Untagged
@@ -88,20 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-1524371873331834083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2537760756184386738}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36ca1765837e7f2438111ba65f6781f9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rigidBody: {fileID: 7732271990166494832}
-  impactCollision: {fileID: 3351389288715501747, guid: e517a7df9b27bb042bdfdef4581f8af6, type: 3}
 --- !u!50 &7732271990166494832
 Rigidbody2D:
   serializedVersion: 4
@@ -193,3 +179,18 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
+--- !u!114 &-646883735627798047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2537760756184386738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f9b8c50b6fe818418b320705c8aa7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnHit:
+    m_PersistentCalls:
+      m_Calls: []

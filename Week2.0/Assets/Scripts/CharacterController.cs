@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PLayerMovementScript : MonoBehaviour
+public class CharacterController : MonoBehaviour
 {
     public Camera sceneCamera;
     public float speed = 0f;
     public Rigidbody2D rigidBody;
-    private Vector2 moveDirection;
-    private Vector2 mousePosition;
-    public Weapon weapon;
-    // Update is called once per frame
+    private Vector2 moveDirection, mousePosition;
+    Weapon curWeapon;
+    //public Weapon weapon;
+    private void Start()
+    {
+        curWeapon = GetComponents<Weapon>()[0];
+    }
+
     void Update()
     {
         //for processing inputs
@@ -32,7 +36,13 @@ public class PLayerMovementScript : MonoBehaviour
         mousePosition = sceneCamera.ScreenToWorldPoint(Input.mousePosition);
         if(Input.GetMouseButtonDown(0))
         {
-            weapon.Fire();
+            //weapon.Shoot();
+            // this.GetComponent<Laser>().Shoot();
+            curWeapon.Shoot();
+        }
+        else if(Input.GetMouseButtonUp(0))
+        {
+            curWeapon.DontShoot();
         }
     }
 
