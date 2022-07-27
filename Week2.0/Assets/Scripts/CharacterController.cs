@@ -12,12 +12,11 @@ public class CharacterController : MonoBehaviour
     //public Weapon weapon;
     private void Start()
     {
-        curWeapon = GetComponents<Weapon>()[0];
     }
-
     void Update()
     {
         //for processing inputs
+        curWeapon = GetComponent<Weapon>(); //get the first weapon assignd to the player hich will be one at a time
         ProcessInputs();
     }
     void FixedUpdate()
@@ -31,13 +30,11 @@ public class CharacterController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         moveDirection = new Vector2(moveX, moveY).normalized; //to get input from one vector only 
-
         //to get mouse position
         mousePosition = sceneCamera.ScreenToWorldPoint(Input.mousePosition);
+        //Switching with gun cntroller
         if(Input.GetMouseButtonDown(0))
         {
-            //weapon.Shoot();
-            // this.GetComponent<Laser>().Shoot();
             curWeapon.Shoot();
         }
         else if(Input.GetMouseButtonUp(0))
@@ -55,4 +52,6 @@ public class CharacterController : MonoBehaviour
         float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         rigidBody.rotation = aimAngle;
     }
+
+
 }

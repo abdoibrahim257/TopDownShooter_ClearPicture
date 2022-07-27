@@ -10,13 +10,14 @@ public class ProjectileGun : Weapon
     public GameObject impactCollision;
     public float Damage;
     private float TimeBetweenShots=0.3f;
+    private float fireForce= 40;
     public float NumberOfProjectile = 1;//default equal 1
     public UnityEvent<GameObject, GameObject> OnHit;
     bool canShoot;
 
     private void Start()
     {
-        canShoot = true;
+        canShoot = false;
     }
     void Update()
     {
@@ -40,15 +41,12 @@ public class ProjectileGun : Weapon
 
         }
     }
+
     public override void DontShoot()
     {
         //....
     }
-    //public void Impact()
-    //{
-    //    Destroy(gameObject);
-    //    Instantiate(impactCollision, transform.position, Quaternion.identity);
-    //}
+
     public void Impact(GameObject collidedWith, GameObject collidingObject)
     {
         if (collidedWith.CompareTag("wall"))
@@ -57,18 +55,26 @@ public class ProjectileGun : Weapon
             Instantiate(impactCollision, collidingObject.transform.position, Quaternion.identity);
         }
     }
+
     public void DmgPlayer(GameObject collidedWith, GameObject collidinObject)
     {
-
+        //.........
     }
+
     public void EnemyImpact(GameObject collidedWith, GameObject collidinObject)
     {
-
+        //.........
     }
+    
     //for delay
     IEnumerator ShotCoolDown() 
     {
         yield return new WaitForSeconds(TimeBetweenShots);
         canShoot = true;
     }
+
+    //public override Weapon Clone(GameObject source, GameObject destination)
+    //{
+    //    //throw new System.NotImplementedException();
+    //}
 }

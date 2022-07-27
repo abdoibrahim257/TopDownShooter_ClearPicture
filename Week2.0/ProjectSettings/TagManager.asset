@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - wall
+  - LaserPickup
+  - ProjectilePickup
   layers:
   - Default
   - TransparentFX
@@ -41,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Background
     uniqueID: 232970395
+    locked: 0
+  - name: Foreground
+    uniqueID: 1087051697
     locked: 0
   - name: Default
     uniqueID: 0
