@@ -56,12 +56,16 @@ public class ProjectileGun : Weapon
         }
     }
 
-    public void DmgPlayer(GameObject collidedWith, GameObject collidinObject)
+    public void DmgPlayer(GameObject collidedWith, GameObject collidingObject)
     {
         //.........
+        if(collidedWith.CompareTag("Player"))
+        {
+                
+        }
     }
 
-    public void EnemyImpact(GameObject collidedWith, GameObject collidinObject)
+    public void EnemyImpact(GameObject collidedWith, GameObject collidingObject)
     {
         //.........
     }

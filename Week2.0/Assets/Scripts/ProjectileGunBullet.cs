@@ -8,6 +8,7 @@ public class ProjectileGunBullet : MonoBehaviour
     public UnityEvent<GameObject, GameObject> OnHit;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.tag);
         OnHit?.Invoke(collision.gameObject, this.gameObject);
     }
 }

@@ -1,32 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class HealthScript : MonoBehaviour
 {
-    public int maxHealth;
-    public int currentHealth;
+    public float maxHealth = 10;
+    public float currentHealth;
+
+    public UnityEvent OnDamageTaken;
+    public UnityEvent OnDeath;
+    public UnityEvent OnHeal;
+
 
     private void Start()
     {
         currentHealth = maxHealth;
     }
-
-    void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        OnDamageTaken?.Invoke();
         //play animation of taking dmg
-        if(currentHealth<=0)
+        if (currentHealth<=0)
         {
-            //play death animation
-            //we are dead
+            OnDeath?.Invoke();
         }
     }
-    void Heal(int amount)
+    public void Heal(int amount)
     {
         currentHealth += amount;
+        OnHeal?.Invoke();
+
         //play animation of taking dmg
-        if (currentHealth < maxHealth)
+        if (currentHealth > maxHealth)
         {
             //play death animation
             //we are dead

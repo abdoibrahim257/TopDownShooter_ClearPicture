@@ -11,7 +11,6 @@ public class Laser : Weapon
     {
         if (Input.GetMouseButton(0))
             Shoot();
-
     }
     public override void Shoot()
     {
