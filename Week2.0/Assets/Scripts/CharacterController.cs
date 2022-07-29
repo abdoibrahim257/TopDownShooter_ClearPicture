@@ -9,9 +9,12 @@ public class CharacterController : MonoBehaviour
     public Rigidbody2D rigidBody;
     private Vector2 moveDirection, mousePosition;
     Weapon curWeapon;
+    Vector3 respawnPoint;
     //public Weapon weapon;
+
     private void Start()
     {
+        respawnPoint = gameObject.transform.position;   
     }
     void Update()
     {
@@ -24,7 +27,6 @@ public class CharacterController : MonoBehaviour
         //for movement
         move();
     }
-
     void ProcessInputs()
     {
         float moveX = Input.GetAxisRaw("Horizontal");
@@ -42,7 +44,6 @@ public class CharacterController : MonoBehaviour
             curWeapon.DontShoot();
         }
     }
-
     void move()
     {
         rigidBody.velocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
@@ -53,5 +54,12 @@ public class CharacterController : MonoBehaviour
         rigidBody.rotation = aimAngle;
     }
 
-
+    public void recordRespawn(Vector3 respawnpoint)
+    {
+        respawnPoint = respawnpoint;
+    }
+    public void reaspawnplayer()
+    {
+        gameObject.transform.position = respawnPoint;
+    }
 }

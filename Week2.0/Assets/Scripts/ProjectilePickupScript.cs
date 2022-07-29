@@ -8,10 +8,10 @@ public class ProjectilePickupScript : MonoBehaviour
     public GameObject player;
     public Transform firePoint;
     public GameObject projectile;
-    public GameObject impactCollision;
+    //public GameObject impactCollision;
     public float dmg;
     public float NOP;
-    public UnityEvent<GameObject, GameObject> onHit;
+    //public UnityEvent<GameObject, GameObject> onHit;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -36,12 +36,11 @@ public class ProjectilePickupScript : MonoBehaviour
                 {
                     p.FirePoint = firePoint;
                     p.Projectile = projectile;
-                    p.impactCollision = impactCollision;
-                    p.Damage = dmg;
+                    //p.impactCollision = impactCollision;
                     p.NumberOfProjectile = NOP;
-                    p.OnHit = onHit;
+                    //p.OnHit = onHit;
                 }
-                //Destroy(this.gameObject);
+                Destroy(this.gameObject);
             }
             else if (currweapon == player.GetComponent<ProjectileGun>())
             {

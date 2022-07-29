@@ -7,6 +7,7 @@ TagManager:
   - wall
   - LaserPickup
   - ProjectilePickup
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -44,9 +45,9 @@ TagManager:
   - name: Background
     uniqueID: 232970395
     locked: 0
-  - name: Foreground
-    uniqueID: 1087051697
-    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Foreground
+    uniqueID: 1087051697
     locked: 0

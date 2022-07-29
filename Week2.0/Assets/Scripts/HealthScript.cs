@@ -12,6 +12,9 @@ public class HealthScript : MonoBehaviour
     public UnityEvent OnDeath;
     public UnityEvent OnHeal;
 
+    public GameObject DamagingAnim;
+    public GameObject HealingAnim;
+
 
     private void Start()
     {
@@ -24,6 +27,7 @@ public class HealthScript : MonoBehaviour
         //play animation of taking dmg
         if (currentHealth<=0)
         {
+            currentHealth = maxHealth;
             OnDeath?.Invoke();
         }
     }
@@ -35,9 +39,21 @@ public class HealthScript : MonoBehaviour
         //play animation of taking dmg
         if (currentHealth > maxHealth)
         {
-            //play death animation
-            //we are dead
             currentHealth = maxHealth;
         }
+    }
+    public void TakingDamage()
+    {
+        Instantiate(DamagingAnim, transform.position, Quaternion.identity);
+    }
+    public void Healing()
+    {
+        Instantiate(HealingAnim, transform.position, Quaternion.identity);
+        // HealingAnim.GetComponent<Animator>().enabled=true;
+    }
+    public void destroyTurret()
+    {
+        if(gameObject.CompareTag("Enemy"))
+            Destroy(gameObject);
     }
 }
