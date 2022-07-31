@@ -9,7 +9,7 @@ public class ProjectilePickupScript : MonoBehaviour
     public Transform firePoint;
     public GameObject projectile;
     //public GameObject impactCollision;
-    public float dmg;
+    // public float dmg;
     public float NOP;
     //public UnityEvent<GameObject, GameObject> onHit;
 
@@ -20,7 +20,7 @@ public class ProjectilePickupScript : MonoBehaviour
             //player.AddComponent<Laser>();
             //player will be holding only gun at a time and he will be removing it first and the assignin it later '
             //first
-            Debug.Log("Projectile Gun");
+            // Debug.Log("Projectile Gun");
             //Second
             //assign new component to the player with the gun
             Weapon currweapon = player.GetComponent<Weapon>();

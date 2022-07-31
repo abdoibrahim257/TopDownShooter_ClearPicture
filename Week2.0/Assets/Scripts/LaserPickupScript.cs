@@ -5,6 +5,7 @@ using UnityEngine;
 public class LaserPickupScript : MonoBehaviour
 {
    // Weapon weapon;
+   public float Range;
     public Transform firePoint;
     public GameObject player;
     public Camera camera;
@@ -32,6 +33,7 @@ public class LaserPickupScript : MonoBehaviour
                 //copying the stuff
                 if (l)
                 {
+                    l.Range = Range;
                     l.FirePoint = firePoint;
                     l.cam = camera;
                     l.lineRenderer = lineRenderer;

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Laser : Weapon
 {
+    public float Range = 15f;
     public Camera cam;
     public LineRenderer lineRenderer;
     public GameObject LaserImpact;
@@ -15,22 +16,23 @@ public class Laser : Weapon
     public override void Shoot()
     {
         //Debug.Log("LASER INCOMMING");
+        Debug.Log(lineRenderer.widthMultiplier);
         lineRenderer.enabled = true;
+        lineRenderer.widthMultiplier = 0.5f;
         var mousePosition = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - (Vector2)FirePoint.position;
         //Debug.Log(direction.magnitude);
         lineRenderer.SetPosition(0, FirePoint.position);
-        lineRenderer.SetPosition(1, mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(FirePoint.position, direction.normalized, direction.magnitude);
+        lineRenderer.SetPosition(1, (Vector2)FirePoint.position+ direction.normalized * Range);
+        RaycastHit2D hit = Physics2D.CircleCast(FirePoint.position, lineRenderer.widthMultiplier/2, direction,Range);
         //Debug.Log(hit.collider.tag);
         //.collider.attachedRigidbody.tag != "Player"
         if (hit)
         {
-
+            Debug.Log(hit.collider.tag);
             if(hit.collider.CompareTag("wall"))
             { 
                 //do nothing
-                Debug.Log(hit.collider.tag);
                 LaserImpact.GetComponent<ParticleSystem>().Play();
                 lineRenderer.SetPosition(1, hit.point);
                 LaserImpact.transform.position = lineRenderer.GetPosition(1);
@@ -38,12 +40,20 @@ public class Laser : Weapon
             }
             else if(hit.collider.CompareTag("Enemy"))
             {
-                Debug.Log(hit.collider.tag);
+                //Debug.Log(hit.collider.tag);
                 LaserImpact.GetComponent<ParticleSystem>().Play();
                 lineRenderer.SetPosition(1, hit.point);
                 LaserImpact.transform.position = lineRenderer.GetPosition(1);
                 if(hit.collider.GetComponent<HealthScript>()) //IF SCRIPT EXITS ON THE ENEMY
                     hit.collider.GetComponent<HealthScript>().TakeDamage(5);
+            }
+            else if(hit.collider.CompareTag("Player") && gameObject.CompareTag("Enemy"))
+            {
+                LaserImpact.GetComponent<ParticleSystem>().Play();
+                lineRenderer.SetPosition(1, hit.point);
+                LaserImpact.transform.position = lineRenderer.GetPosition(1);
+                if(hit.collider.GetComponent<HealthScript>())
+                    hit.collider.GetComponent<HealthScript>().TakeDamage(3);
             }
         }
         else

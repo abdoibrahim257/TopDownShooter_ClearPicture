@@ -11,14 +11,13 @@ public class ChangeColorScript : MonoBehaviour
     }
     public void ChangeColor()
     {
-        Debug.Log(gameObject.GetComponent<SpriteRenderer>().color);
+        //Debug.Log(gameObject.GetComponent<SpriteRenderer>().color);
         if(sr.color == Color.red)
         {
             //change color to green
             sr.color =new Color(0f,1f,0f,1f);
-            Debug.Log(sr.color);
+            //Debug.Log(sr.color);
             // gameObject.GetComponentInChildren<Light>().color = Color.green;
-            
         }
     }
 

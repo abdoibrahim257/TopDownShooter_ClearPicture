@@ -8,23 +8,32 @@ public class ProjectileGun : Weapon
     //public Rigidbody2D rigidBody;
     public GameObject Projectile;
     //public GameObject impactCollision; //here
-    
+    private float nextShootTime;
     public float TimeBetweenShots=0.3f;
     private float fireForce= 40;
     public float NumberOfProjectile = 1;//default equal 1
    // public UnityEvent<GameObject, GameObject> OnHit;
-    bool canShoot;
+    // bool canShoot;
 
-    private void Start()
-    {
-        canShoot = false;
-    }
+    // private void Start()
+    // {
+    //     canShoot = false;
+    // }
+
     void Update()
     {
-        if (Input.GetMouseButton(0) && canShoot && gameObject.CompareTag("Player"))
+        if (Input.GetMouseButton(0) && Time.time>nextShootTime && gameObject.CompareTag("Player"))
+        {
             Shoot();
-        else if(canShoot && gameObject.CompareTag("Enemy"))
-            Shoot();
+            nextShootTime = Time.time + TimeBetweenShots;
+        }
+        // else if(Time.time>nextShootTime && gameObject.CompareTag("Enemy"))
+        // {
+        //     Shoot();
+        //     nextShootTime = Time.time + TimeBetweenShots;
+        // }
+        // else if(canShoot && gameObject.CompareTag("Enemy"))
+        //     Shoot();
     }
     public override void Shoot()
     {
@@ -35,8 +44,8 @@ public class ProjectileGun : Weapon
             //Debug.Log(gameObject.tag);
             //projectileBullet.GetComponent<ProjectileGunBullet>().OnHit = OnHit; //link on hit event here and with bullet itself    //here
             //delay
-            canShoot = false;
-            StartCoroutine(ShotCoolDown()); 
+            // canShoot = false;
+            // StartCoroutine(ShotCoolDown()); 
         }
         else if (NumberOfProjectile > 1)
         {
@@ -47,12 +56,12 @@ public class ProjectileGun : Weapon
     public override void DontShoot()
     {
         //...
-        canShoot = false;
+        // canShoot = false;
     }
     IEnumerator ShotCoolDown() 
     {
         yield return new WaitForSeconds(TimeBetweenShots);
-        canShoot = true;
+        // canShoot = true;
     }
 
     //here

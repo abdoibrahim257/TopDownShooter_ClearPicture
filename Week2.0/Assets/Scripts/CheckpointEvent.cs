@@ -8,6 +8,6 @@ public class CheckpointEvent : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if(other.CompareTag("Player"))
-            CheckPoint?.Invoke(this.GetComponent<BoxCollider2D>().offset);
+            CheckPoint?.Invoke(this.gameObject.transform.position);
     }
 }
