@@ -45,7 +45,7 @@ public class Laser : Weapon
                 lineRenderer.SetPosition(1, hit.point);
                 LaserImpact.transform.position = lineRenderer.GetPosition(1);
                 if(hit.collider.GetComponent<HealthScript>()) //IF SCRIPT EXITS ON THE ENEMY
-                    hit.collider.GetComponent<HealthScript>().TakeDamage(5);
+                    hit.collider.GetComponent<HealthScript>().TakeDamage(1);
             }
             else if(hit.collider.CompareTag("Player") && gameObject.CompareTag("Enemy"))
             {
@@ -53,7 +53,7 @@ public class Laser : Weapon
                 lineRenderer.SetPosition(1, hit.point);
                 LaserImpact.transform.position = lineRenderer.GetPosition(1);
                 if(hit.collider.GetComponent<HealthScript>())
-                    hit.collider.GetComponent<HealthScript>().TakeDamage(3);
+                    hit.collider.GetComponent<HealthScript>().TakeDamage(1);
             }
         }
         else

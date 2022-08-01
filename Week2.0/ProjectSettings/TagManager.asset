@@ -13,12 +13,12 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - player
   - Water
   - UI
   - platform
-  - player
-  - Character
+  - 
+  - 
   - 
   - 
   - 

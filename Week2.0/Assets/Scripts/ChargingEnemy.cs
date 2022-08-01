@@ -13,9 +13,11 @@ public class ChargingEnemy : MonoBehaviour
     public GameObject Player;
     private State state;
     private float TimeToCharge;
+    bool Engaging;
     private void Start() 
     {
        state = State.Finding;
+       Engaging = false;
     }
 
     private void Update()
@@ -25,12 +27,13 @@ public class ChargingEnemy : MonoBehaviour
             case(State.Finding):
                 //make enemy move randomlyy to be added
                 // Debug.Log("Enemy looking for player");
-                Findtarget(); 
+                Findtarget();
+                Engaging = false; 
                 break;
             case(State.Charging):
-
                 if (Time.time > TimeToCharge)
                 {
+                    Engaging = false; 
                     Debug.Log("Enemy Charging HEREEEEEEEEEEEEEE");
                     //play animation of charging
                     // RotateCharger();
@@ -40,18 +43,18 @@ public class ChargingEnemy : MonoBehaviour
                 }
                 break;
             case(State.Engaging):
-            {
                 if(Time.time > TimeToCharge)
                 {
                     Debug.Log("Enemy incoming");
                     
                     //throw the enemy with force to toward the player
-                    this.gameObject.GetComponent<Rigidbody2D>().AddForce(this.gameObject.transform.up * 30000000, ForceMode2D.Impulse);
+                    this.gameObject.GetComponent<Rigidbody2D>().AddForce(this.gameObject.transform.up * 50000000, ForceMode2D.Impulse);
+                    Engaging = true;
                     float fixedRate = 4f;
                     TimeToCharge = Time.time + fixedRate;
+                    
                     state = State.Charging;
                 }
-            }
                 break;
 
         }
@@ -85,4 +88,27 @@ public class ChargingEnemy : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter2D(Collision2D other) 
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+            //impulse effect on the player
+            Vector3 hitVector = (other.gameObject.transform.position - transform.position).normalized;
+            hitVector = (other.gameObject.transform.position - transform.position);
+            // hitVector.y = 0;
+            hitVector = hitVector.normalized ;
+            other.rigidbody.AddForce(hitVector* 6000 );
+
+            if(Player.GetComponent<HealthScript>() && Engaging)
+            {
+                Player.GetComponent<HealthScript>().TakeDamage(40);
+            }
+
+        }
+        else
+        {
+            this.gameObject.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        }
+    }
 }
