@@ -8,6 +8,7 @@ public class HealthScript : MonoBehaviour
     public float maxHealth = 10;
     public float currentHealth;
     public GameObject healPickup;
+    public Transform firePoint;
     public UnityEvent OnDamageTaken;
     public UnityEvent OnDeath;
     public UnityEvent OnHeal;
@@ -20,7 +21,7 @@ public class HealthScript : MonoBehaviour
     {
         currentHealth = maxHealth;
     }
-    public void TakeDamage(int amount)
+    public void TakeDamage(float amount)
     {
         currentHealth -= amount;
         OnDamageTaken?.Invoke();
@@ -31,7 +32,7 @@ public class HealthScript : MonoBehaviour
             OnDeath?.Invoke();
         }
     }
-    public void Heal(int amount)
+    public void Heal(float amount)
     {
         currentHealth += amount;
         OnHeal?.Invoke();
@@ -61,11 +62,10 @@ public class HealthScript : MonoBehaviour
 
     public void destroy_Instantiate()
     {
-        if(gameObject.CompareTag("Enemy"))
-        {
-            Instantiate(healPickup, this.gameObject.transform.position, Quaternion.identity);
-        }
-        Destroy(gameObject, 1.7f);
+        
+        Instantiate(healPickup, transform.position, transform.rotation);
+        // Instantiate(healPickup, firePoint.position, firePoint.rotation);
+        Destroy(gameObject);
     }
 
 }

@@ -41,7 +41,7 @@ public class turretController : MonoBehaviour
         }
     }
 
-    public void ShootPlayer()
+    private void ShootPlayer()
     {
         if(currWeapon)
             currWeapon.Shoot();

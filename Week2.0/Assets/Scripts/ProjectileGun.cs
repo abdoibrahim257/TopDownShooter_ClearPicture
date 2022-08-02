@@ -24,16 +24,9 @@ public class ProjectileGun : Weapon
     {
         if (Input.GetMouseButton(0) && Time.time>nextShootTime && gameObject.CompareTag("Player"))
         {
-            Shoot();
             nextShootTime = Time.time + TimeBetweenShots;
+            Shoot();
         }
-        // else if(Time.time>nextShootTime && gameObject.CompareTag("Enemy"))
-        // {
-        //     Shoot();
-        //     nextShootTime = Time.time + TimeBetweenShots;
-        // }
-        // else if(canShoot && gameObject.CompareTag("Enemy"))
-        //     Shoot();
     }
     public override void Shoot()
     {

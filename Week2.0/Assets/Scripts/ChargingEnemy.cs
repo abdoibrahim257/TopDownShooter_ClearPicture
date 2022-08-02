@@ -9,15 +9,16 @@ public class ChargingEnemy : MonoBehaviour
         Charging,
         Engaging,
     }
+    public Animator animator;
     public Rigidbody2D rigidBody;
     public GameObject Player;
     private State state;
     private float TimeToCharge;
     bool Engaging;
-    private void Start() 
+    private void Start()
     {
        state = State.Finding;
-       Engaging = false;
+    //    Engaging = false;
     }
 
     private void Update()
@@ -28,12 +29,13 @@ public class ChargingEnemy : MonoBehaviour
                 //make enemy move randomlyy to be added
                 // Debug.Log("Enemy looking for player");
                 Findtarget();
-                Engaging = false; 
+                Engaging = false;
                 break;
             case(State.Charging):
                 if (Time.time > TimeToCharge)
                 {
-                    Engaging = false; 
+                    Engaging = false;
+                    animator.SetTrigger("isCharging");
                     Debug.Log("Enemy Charging HEREEEEEEEEEEEEEE");
                     //play animation of charging
                     // RotateCharger();
@@ -46,14 +48,14 @@ public class ChargingEnemy : MonoBehaviour
                 if(Time.time > TimeToCharge)
                 {
                     Debug.Log("Enemy incoming");
-                    
                     //throw the enemy with force to toward the player
                     this.gameObject.GetComponent<Rigidbody2D>().AddForce(this.gameObject.transform.up * 50000000, ForceMode2D.Impulse);
+                    animator.SetTrigger("isEngaging");
                     Engaging = true;
                     float fixedRate = 4f;
                     TimeToCharge = Time.time + fixedRate;
-                    
                     state = State.Charging;
+                    // animator.SetBool("isEngagin", false);
                 }
                 break;
 
@@ -72,7 +74,7 @@ public class ChargingEnemy : MonoBehaviour
     {
         // Debug.Log("Enemy Rotating");
         Vector2 playerPosition = (Vector2) Player.transform.position;
-        Vector2 TurretPosition = playerPosition - this.gameObject.GetComponent<Rigidbody2D>().position;   
+        Vector2 TurretPosition = playerPosition - this.gameObject.GetComponent<Rigidbody2D>().position;
         float aimAngle = Mathf.Atan2(TurretPosition.y,TurretPosition.x) * Mathf.Rad2Deg - 90f;
         this.gameObject.GetComponent<Rigidbody2D>().rotation = aimAngle;
     }
@@ -88,7 +90,7 @@ public class ChargingEnemy : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D other) 
+    void OnCollisionEnter2D(Collision2D other)
     {
         if(other.gameObject.CompareTag("Player"))
         {
