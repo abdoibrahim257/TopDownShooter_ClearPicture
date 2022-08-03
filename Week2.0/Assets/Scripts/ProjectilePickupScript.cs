@@ -9,7 +9,8 @@ public class ProjectilePickupScript : MonoBehaviour
     public Transform firePoint;
     public GameObject projectile;
     //public GameObject impactCollision;
-    // public float dmg;
+    public float dmg;
+    public float TimeBetweenShots;
     public float NOP;
     //public UnityEvent<GameObject, GameObject> onHit;
 
@@ -37,7 +38,9 @@ public class ProjectilePickupScript : MonoBehaviour
                     p.FirePoint = firePoint;
                     p.Projectile = projectile;
                     //p.impactCollision = impactCollision;
+                    p.TimeBetweenShots = TimeBetweenShots;
                     p.NumberOfProjectile = NOP;
+                    p.BulletDamage = dmg;
                     //p.OnHit = onHit;
                 }
                 Destroy(this.gameObject);

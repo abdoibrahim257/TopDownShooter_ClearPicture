@@ -193,7 +193,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impactCollision: {fileID: 3351389288715501747, guid: e517a7df9b27bb042bdfdef4581f8af6, type: 3}
-  Damage: 3
   OnHit:
     m_PersistentCalls:
       m_Calls:

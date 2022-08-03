@@ -7,8 +7,7 @@ public class HealthScript : MonoBehaviour
 {
     public float maxHealth = 10;
     public float currentHealth;
-    public GameObject healPickup;
-    public Transform firePoint;
+    public GameObject DropObject;
     public UnityEvent OnDamageTaken;
     public UnityEvent OnDeath;
     public UnityEvent OnHeal;
@@ -63,7 +62,7 @@ public class HealthScript : MonoBehaviour
     public void destroy_Instantiate()
     {
         
-        Instantiate(healPickup, transform.position, transform.rotation);
+        Instantiate(DropObject, transform.position, transform.rotation);
         // Instantiate(healPickup, firePoint.position, firePoint.rotation);
         Destroy(gameObject);
     }

@@ -9,6 +9,7 @@ TagManager:
   - ProjectilePickup
   - Enemy
   - CheckPoint
+  - DmgPickup
   layers:
   - Default
   - TransparentFX
@@ -17,8 +18,8 @@ TagManager:
   - Water
   - UI
   - platform
-  - 
-  - 
+  - InvPlatform
+  - enemy
   - 
   - 
   - 

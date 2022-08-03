@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoamingEnemyScript : MonoBehaviour
 {
+    [SerializeField] private LayerMask layerMask;
     private enum State
     {
         Idle,
@@ -15,15 +16,18 @@ public class RoamingEnemyScript : MonoBehaviour
     private State state;
     float timeToShoot;
     float waitTime;
-
-    private void Start() 
+    Vector2 previousPoint;
+    Vector2 positionbeformove;
+    public float speed = 10f;
+    public Rigidbody2D rigidBody;
+    private void Start()
     {
         currWeapon = GetComponent<Weapon>();
-        state = State.Idle;      
+        state = State.Idle;
+        previousPoint = transform.position;
+        positionbeformove = new Vector2(0,0);
     }
-
-
-    private void Update() 
+    private void Update()
     {
         switch(state)
         {
@@ -31,23 +35,24 @@ public class RoamingEnemyScript : MonoBehaviour
                 FindTarget();  // in the state and in roaming will be finding player if found ==> start shooting
                 if(Time.time > waitTime)
                 {
-                    Debug.Log("Idling");
-                    float wait = 3f;
+                    // Debug.Log("Idling");
+                    float wait = 1f;
                     waitTime = Time.time + wait;
                     state = State.Roaming;
                 }
                 break;
             case State.Roaming:
-            FindTarget();
+                FindTarget();
                 if(Time.time > waitTime)
                 {
-                    Debug.Log("Moving Randomly");
-                    float wait = 3f;
+                    // Debug.Log("Roaming");
+                    float wait = 2f;
                     waitTime = Time.time + wait;
                     state = State.Idle;
                 }
                 break;
             case State.shooting:
+                FindTarget();
                 if(Time.time>timeToShoot)
                 {
                     float fixedFireRate= 0.333333f;
@@ -55,7 +60,7 @@ public class RoamingEnemyScript : MonoBehaviour
                     timeToShoot = Time.time +fixedFireRate;
                 }
                 break;
-        }    
+        }
     }
     public void ShootPlayer()
     {
@@ -63,10 +68,50 @@ public class RoamingEnemyScript : MonoBehaviour
             currWeapon.Shoot();
     }
 
-    private void FixedUpdate() 
+    private void FixedUpdate()
     {
         if(state == State.shooting)
-            RotateEnemy();    
+            RotateEnemy();
+        else if(state == State.Roaming)
+           MoveToRandomPosition();
+    }
+    void MoveToRandomPosition()
+    {
+        // Vector2 point;
+        if(previousPoint+positionbeformove == (Vector2)gameObject.transform.position)
+        {
+            //Debug.Log("Here");
+            positionbeformove = previousPoint;
+            previousPoint= GetValidPostion();
+        }
+        //Debug.Log((Vector2)transform.position + point);
+        // Vector2 direction = previousPoint - (Vector2)transform.position;
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position,0.025f, previousPoint, 5f, layerMask);
+        // Debug.Log($"Enemy {(hit.transform.position + point}");
+        // Debug.Log($"Player {player.transform.position}");
+        //Debug.Log(previousPoint);
+        if(!hit)
+        {
+            // Debug.Log(positionbeformove+previousPoint);
+            // Debug.Log(gameObject.transform.position);
+            float angle = Mathf.Atan2(previousPoint.y, previousPoint.x) * Mathf.Rad2Deg - 90f;
+            rigidBody.rotation = angle;
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, (Vector2)gameObject.transform.position + previousPoint, speed*Time.deltaTime);
+        }
+        else
+            previousPoint = GetValidPostion();
+    }
+
+    Vector2 GetValidPostion()
+    {
+        //generate random angle
+        Vector2 point;
+        float length =5f;
+        float angle = UnityEngine.Random.Range(0, 360);
+        point.x = length * Mathf.Cos(angle * Mathf.Deg2Rad);
+        point.y = length * Mathf.Sin(angle * Mathf.Deg2Rad);
+        // point.y = 1f;
+        return point;
     }
 
         void RotateEnemy()
@@ -84,19 +129,9 @@ public class RoamingEnemyScript : MonoBehaviour
         if(Vector3.Distance(transform.position, player.transform.position) < targetRange)
         {
             //player in range
-            // ChangeColorScript stater too charging
+            // Debug.Log("Enemy Incoming!!!");
             state = State.shooting;
         }
     }
 }
-    // private Vector3 startingPosition;
-
-    // private void Start() 
-    // {
-    //     startingPosition = transform.position;    
-    // }
-
-    // private Vector3 GetRoamingPosition()
-    // {
-    //     return startingPosition + new Vector3(UnityEngine.Random.Range(-1f,1f), UnityEngine.Random.Range(-1f,1f)).normalized * Random.Range(10f,70f);
-    // }
+    
