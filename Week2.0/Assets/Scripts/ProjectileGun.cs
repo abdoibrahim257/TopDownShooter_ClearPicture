@@ -7,7 +7,6 @@ public class ProjectileGun : Weapon
 {
     //public Rigidbody2D rigidBody;
     public GameObject Projectile;
-    bool WantAnUpgrade;
     public float BulletDamage;
     private float nextShootTime;
     public float TimeBetweenShots=0.3f;
@@ -16,9 +15,9 @@ public class ProjectileGun : Weapon
    // public UnityEvent<GameObject, GameObject> OnHit;
     // bool canShoot;
     GameObject projectileBullet;
+    bool WantAnUpgrade;
     bool TemporaryUpgrade;
     float TimeSinceUpgrade;
-
     bool revertSpeed;
     bool revertDamage;
 

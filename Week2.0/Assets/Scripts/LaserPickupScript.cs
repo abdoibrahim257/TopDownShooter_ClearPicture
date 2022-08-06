@@ -5,7 +5,8 @@ using UnityEngine;
 public class LaserPickupScript : MonoBehaviour
 {
    // Weapon weapon;
-   public float Range;
+    public float Range;
+    public LayerMask layerMask;
     public Transform firePoint;
     public GameObject player;
     public Camera camera;
@@ -34,6 +35,7 @@ public class LaserPickupScript : MonoBehaviour
                 if (l)
                 {
                     l.Range = Range;
+                    l.layerMask = layerMask;
                     l.FirePoint = firePoint;
                     l.cam = camera;
                     l.lineRenderer = lineRenderer;

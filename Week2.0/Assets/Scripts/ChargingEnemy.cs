@@ -58,7 +58,6 @@ public class ChargingEnemy : MonoBehaviour
                     // animator.SetBool("isEngagin", false);
                 }
                 break;
-
         }
     }
     void FixedUpdate()
@@ -84,8 +83,7 @@ public class ChargingEnemy : MonoBehaviour
         float targetRange = 15f;
         if(Vector3.Distance(transform.position, Player.transform.position) < targetRange)
         {
-            //player in range
-            // ChangeColorScript stater too charging
+            
             state = State.Charging;
         }
     }

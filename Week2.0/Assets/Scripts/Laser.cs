@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Laser : Weapon
 {
+    public LayerMask layerMask;
     public float Range = 15f;
     public Camera cam;
     public LineRenderer lineRenderer;
@@ -31,14 +32,14 @@ public class Laser : Weapon
     public override void Shoot()
     {
         //Debug.Log("LASER INCOMMING");
-        Debug.Log(lineRenderer.widthMultiplier);
+        // Debug.Log(lineRenderer.widthMultiplier);
         lineRenderer.enabled = true;
         var mousePosition = (Vector2)cam.ScreenToWorldPoint(Input.mousePosition);
         Vector2 direction = mousePosition - (Vector2)FirePoint.position;
         //Debug.Log(direction.magnitude);
         lineRenderer.SetPosition(0, FirePoint.position);
         lineRenderer.SetPosition(1, (Vector2)FirePoint.position+ direction.normalized * Range);
-        RaycastHit2D hit = Physics2D.CircleCast(FirePoint.position, 0.3f, direction,Range);
+        RaycastHit2D hit = Physics2D.CircleCast(FirePoint.position, 0.3f, direction,Range, layerMask);
         //Debug.Log(hit.collider.tag);
         //.collider.attachedRigidbody.tag != "Player"
         if (hit)

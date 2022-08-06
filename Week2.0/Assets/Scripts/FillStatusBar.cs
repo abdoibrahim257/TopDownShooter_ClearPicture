@@ -22,9 +22,12 @@ public class FillStatusBar : MonoBehaviour
             float fillvalue = playerHealth.currentHealth / playerHealth.maxHealth;
             slider.value = fillvalue;
         }
-        if (slider.value <= slider.minValue)
-            fillImage.enabled = false;
-        if (slider.value > slider.minValue && !fillImage.enabled)
-            fillImage.enabled = true;
+        if(fillImage != null)
+        {
+            if (slider.value <= slider.minValue)
+                fillImage.enabled = false;
+            if (slider.value > slider.minValue && !fillImage.enabled)
+                fillImage.enabled = true;
+        }
     }
 }
