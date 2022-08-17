@@ -17,7 +17,7 @@ public class RoamingEnemyScript : MonoBehaviour
     float timeToShoot;
     float waitTime;
     Vector2 previousPoint;
-    Vector2 positionbeformove;
+    Vector2 positionBeforeMove;
     public float speed = 10f;
     public Rigidbody2D rigidBody;
     private void Start()
@@ -25,7 +25,7 @@ public class RoamingEnemyScript : MonoBehaviour
         currWeapon = GetComponent<Weapon>();
         state = State.Idle;
         previousPoint = transform.position;
-        positionbeformove = new Vector2(0,0);
+        positionBeforeMove = new Vector2(0,0);
     }
     private void Update()
     {
@@ -78,10 +78,10 @@ public class RoamingEnemyScript : MonoBehaviour
     void MoveToRandomPosition()
     {
         // Vector2 point;
-        if(previousPoint+positionbeformove == (Vector2)gameObject.transform.position)
+        if(previousPoint+positionBeforeMove == (Vector2)gameObject.transform.position)
         {
             //Debug.Log("Here");
-            positionbeformove = previousPoint;
+            positionBeforeMove = previousPoint;
             previousPoint= GetValidPostion();
         }
         //Debug.Log((Vector2)transform.position + point);
